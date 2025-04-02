@@ -106,6 +106,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -113,6 +115,12 @@ import io.cucumber.java.en.When;
 public class LoginSD {
 	
 	public WebDriver driver ;
+	@Before
+	public void setup() {
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	}
 	@Given("the user in on Login page")
 	public void the_user_in_on_login_page() {
 		driver = new ChromeDriver();
@@ -179,6 +187,10 @@ public class LoginSD {
 		WebElement password = driver.findElement(By.id("password"));
 		password.sendKeys("secret_saucess");
 	}
+	@After
+    public void teardown() {
+    	driver.quit();
+    }
 
 
 }
